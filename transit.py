@@ -37,6 +37,14 @@ def free_transit(ev3, rc, lr_M, ud_M):
     rc.on_blue_up   = roll(lr_M, Leds.RIGHT,  5)
     rc.on_blue_down = roll(lr_M, Leds.RIGHT, -5)
 
+    # Enter event processing loop
+    #while not button.any():   #not working so commented out
+    while True:   #replaces previous line so use Ctrl-C to exit
+    rc.process()
+    sleep(0.01)
+    
+#    Press Ctrl-C to exit
+
 
 """
 TODO functions:
