@@ -9,7 +9,7 @@ def wait_for_button(ev3):
 
     # Show a picture of the buttons on the screen.
     # TODO Bild was die einzelnen Buttons machen
-    ev3.screen.load_image('buttons.png')
+    #ev3.screen.load_image('buttons.png')
 
     # Tip: add text or icons to the image to help you
     # remember what each button will do in your program.

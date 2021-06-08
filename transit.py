@@ -1,6 +1,6 @@
 from transit_util import util
 
-def auto_transit(ev3):
+def auto_transit(ev3, rc, lr_M, ud_M):
     """
     This function transitions the gondola from one side to the other.
 
@@ -18,13 +18,25 @@ def auto_transit(ev3):
     
     return true
 
-"""
-# Assign event handler to each of the remote buttons
-rc.on_red_up    = roll(lmotor, Leds.LEFT,   5)
-rc.on_red_down  = roll(lmotor, Leds.LEFT,  -5)
-rc.on_blue_up   = roll(rmotor, Leds.RIGHT,  5)
-rc.on_blue_down = roll(rmotor, Leds.RIGHT, -5)
-"""
+
+def free_transit(ev3, rc, lr_M, ud_M):
+    """
+    This function allows the user to freely move the gondola without any restrictions.
+
+    Soll die Gondel nach Beeindigung des free_transit wieder an eine Startposition automatisch gefahren werden? TODO
+
+    Returns (?)
+    """
+
+    # Show a picture of maybe "free movement enabled" TODO
+    #ev3.screen.load_image('(was Tasten machen).png')
+
+    # Assign event handler to each of the remote buttons
+    rc.on_red_up    = roll(lr_M, Leds.LEFT,   5)
+    rc.on_red_down  = roll(lr_M, Leds.LEFT,  -5)
+    rc.on_blue_up   = roll(lr_M, Leds.RIGHT,  5)
+    rc.on_blue_down = roll(lr_M, Leds.RIGHT, -5)
+
 
 """
 TODO functions:
