@@ -7,6 +7,18 @@ https://education.lego.com/en-us/product-resources/mindstorms-ev3/teacher-resour
 
 https://pybricks.com/ev3-micropython/startrun.html
 
+## Änderungen zur Struktur
+- Die Gondel ist jetzt eine Klasse, dass die Threads die Attribute dieser besser übergeben bekommen können.
+- Man muss in jeder Funktion die Tasten neuzuweisen, das geht mit den EventHandler-Funktionen.
+- Alles in eine Klasse zu machen find ich tatsächlich irgendwie angenehmer, weil man sich dann auch nicht alles überall importieren muss.
+    - also alle anderen Dateien außer der main.py sind nicht mehr nötig eig. und sind nurnoch da für Codeschnipsel.
+
+## Anwendungssachen, die grad so implementiert sind vorerst
+- backspace-Taste am EV3 ist immer als Notstopptaste verwendet/reserviert
+- im free_transit sind die Richtungen die Richtungen und die Mitteltaste ist zurück zum Menü
+    - kann man später so machen, dass der doppelt gedrückt werden muss um das ausversehen Drücken zu entschärfen
+
+
 ## Ideen
 - 2 Modi:
     - Automatisches hin und herfahren gestartet durch Knopfdruck
