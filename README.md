@@ -18,6 +18,11 @@ https://pybricks.com/ev3-micropython/startrun.html
 - im free_transit sind die Richtungen die Richtungen und die Mitteltaste ist zurück zum Menü
     - kann man später so machen, dass der doppelt gedrückt werden muss um das ausversehen Drücken zu entschärfen
 
+## Orientierungsprojekte
+- https://github.com/ev3dev/ev3dev-lang-python-demo/blob/stretch/robots/misc/console_menu.py
+- https://github.com/ev3dev/ev3dev-lang-python-demo/blob/stretch/robots/GRIPP3R/GRIPP3R.py
+- https://github.com/ev3dev/ev3dev-lang-python-demo/blob/stretch/robots/EXPLOR3R/auto-drive.py
+- https://github.com/ev3dev/ev3dev-lang-python-demo/blob/stretch/robots/EXPLOR3R/remote-control.py
 
 ## Ideen
 - 2 Modi:
