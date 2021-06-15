@@ -78,7 +78,8 @@ def free(gon):
 
     def exit_to_menu(gon):
         def on_press(state):
-            gon.menu_exit = True
+            if(state):
+                gon.menu_exit = True
         return on_press
         
 
