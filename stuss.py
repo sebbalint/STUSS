@@ -2,9 +2,13 @@
 from ev3dev2.sound import Sound
 from ev3dev2.button import Button
 from ev3dev2.display import Display
+from ev3dev2.motor import LargeMotor, MediumMotor, OUTPUT_A, OUTPUT_B, SpeedPercent
+from ev3dev2.sensor.lego import InfraredSensor
+from ev3dev2.led import Leds
 from time import sleep
 from PIL import Image
 import os
+from stuss_utils import roll
 os.system('setfont Lat15-TerminusBold14')
 
 
@@ -14,18 +18,22 @@ os.system('setfont Lat15-TerminusBold14')
 #verSpeed = 50
 
 # Connect two large motors on output ports B and C
-# lmotor = LargeMotor('outB')
-# mmotor = MediumMotor('outC')
+hori_motor = LargeMotor(OUTPUT_A)
+vert_motor = MediumMotor(OUTPUT_B) 
 
 # Connect remote control
-# rc = RemoteControl()   
+rc = InfraredSensor()
 
 sound = Sound() 
 btn = Button()
 lcd = Display()
+leds = Leds()
 
 run = True
 exit = False
+
+# Boot events
+leds.all_off()
 
 
 def exit():
