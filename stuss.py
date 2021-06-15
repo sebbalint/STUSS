@@ -90,7 +90,7 @@ def free(gon):
     gon.rc.on_channel1_top_left    = roll(gon.vert_motor, 5)
     gon.rc.on_channel1_bottom_left  = roll(gon.vert_motor, -5)
     gon.rc.on_channel1_top_right   = roll(gon.hori_motor, 5)
-    gon.rc.on_channel1_bottom_rightn = roll(gon.hori_motor, -5)
+    gon.rc.on_channel1_bottom_right = roll(gon.hori_motor, -5)
 
     print('free roll passed')
 
@@ -106,7 +106,6 @@ def free(gon):
     print('enter assigned')
 
     while not gon.menu_exit:
-        print('free loop entered')
         gon.btn.process()
         gon.rc.process()
         sleep(0.01)
@@ -121,10 +120,11 @@ def free(gon):
     gon.rc.on_channel1_top_left    = None
     gon.rc.on_channel1_bottom_left  = None
     gon.rc.on_channel1_top_right   = None
-    gon.rc.on_channel1_bottom_rightn = None
+    gon.rc.on_channel1_bottom_right = None
 
     gon.btn.on_enter = None
 
+    print('about to leave free')
     # gon.return_to_start()
 
 def auto(gon):
