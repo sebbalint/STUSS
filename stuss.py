@@ -7,44 +7,44 @@ from PIL import Image
 import os
 os.system('setfont Lat15-TerminusBold14')
 
+class Things():
+
+    # Set base speed
+    #horSpeed = 50
+    #verSpeed = 50
+
+    # Connect two large motors on output ports B and C
+    # lmotor = LargeMotor('outB')
+    # mmotor = MediumMotor('outC')
+
+    # Connect remote control
+    # rc = RemoteControl()   
+
+    sound = Sound() 
+    btn = Button()
+    lcd = Display()
+
+    run = True
+    exit = False
 
 
-# Set base speed
-#horSpeed = 50
-#verSpeed = 50
-
-# Connect two large motors on output ports B and C
-# lmotor = LargeMotor('outB')
-# mmotor = MediumMotor('outC')
-
-# Connect remote control
-# rc = RemoteControl()   
-
-sound = Sound() 
-btn = Button()
-lcd = Display()
-
-run = True
-exit = False
-
-
-def exit():
-    run = False
-    exit = True
-    lcd.clear()
-    lcd.update()
+def exit(things):
+    things.run = False
+    things.exit = True
+    things.lcd.clear()
+    things.lcd.update()
     print('exit')
 
-def free():
-    run = False
-    lcd.clear()
-    lcd.update()
+def free(things):
+    things.run = False
+    things.lcd.clear()
+    things.lcd.update()
     print('free')
 
-def auto():
-    run = False
-    lcd.clear()
-    lcd.update()
+def auto(things):
+    things.run = False
+    things.lcd.clear()
+    things.lcd.update()
     print('auto')
 
 def return_to_start():
@@ -52,49 +52,52 @@ def return_to_start():
     lcd.clear()
     lcd.update()
     print('return_to_start')
-
-def calibrate():
-    run = False
-    lcd.clear()
-    lcd.update()
+def calibrate(things):
+    things.run = False
+    things.lcd.clear()
+    things.lcd.update()
     print('cal')
 
-def beep():
-    lcd.clear()
-    lcd.update()
-    sound.beep()
-    run = False
+def beep(things):
+    # Sound.beep()
+    things.lcd.clear()
+    things.lcd.update()
+    things.sound.beep()
+    things.run = False
     print('beep')
     sleep(5)
 
-def menu():
+def menu(things):
     logo = Image.open('/home/robot/STUSS/Images/Menu.png')
-    lcd.image.paste(logo, (0,0))
-    lcd.update()
+    things.lcd.image.paste(logo, (0,0))
+    things.lcd.update()
 
 
-    while run:
-        if(btn.right):
-            auto()
-        if(btn.left):
-            free()
-        if(btn.up):
-            calibrate()
-        if(btn.enter):
-            beep()
-        if(btn.down):
-            exit()
+    while things.run:
+        if(things.btn.right):
+            auto(things)
+        if(things.btn.left):
+            free(things)
+        if(things.btn.up):
+            calibrate(things)
+        if(things.btn.enter):
+            beep(things)
+        if(things.btn.down):
+            exit(things)
+        #things.btn.process()
         sleep(0.01)
 
 
 
 # Main
 
-while not exit:
-    run = True
-    menu()
+things = Things()
 
-lcd.clear()
-lcd.update()
+while not things.exit:
+    things.run = True
+    menu(things)
+
+things.lcd.clear()
+things.lcd.update()
 print('Goodbye')
-sound.speak('Goodbye').wait()
+things.sound.speak('Goodbye').wait()
