@@ -62,6 +62,8 @@ class Gondola():
         self.run_menu = True
         self.exit = False
 
+        self.menu_exit = True
+
         # Boot events
         self.leds.all_off()
 
@@ -91,16 +93,21 @@ def free(gon):
     gon.rc.on_channel1_top_right   = roll(gon.hori_motor,   5)
     gon.rc.on_channel1_bottom_rightn = roll(gon.hori_motor,  -5)
 
-    menu_exit = False
+    print('free roll passed')
 
-    def exit_to_menu(menu_exit):
+    gon.menu_exit = False
+
+    def exit_to_menu(gon):
         def on_press(state):
-            menu_exit = True
+            gon.menu_exit = True
         return on_press
+        
 
-    gon.btn.on_enter = exit_to_menu(menu_exit)
+    gon.btn.on_enter = exit_to_menu(gon)
+    print('enter assigned')
 
-    while not menu_exit:
+    while not gon.menu_exit:
+        print('free loop entered')
         gon.btn.process()
         gon.rc.process()
         sleep(0.01)
