@@ -62,7 +62,7 @@ def auto(gon):
     gon.lcd.update()
     print('auto')
 
-def return_to_start():
+def return_to_start(gon):
     run = False
     gon.lcd.clear()
     gon.lcd.update()
