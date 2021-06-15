@@ -21,6 +21,21 @@ def roll(motor, direction): # LEDs könnten hier noch blinken, TODO
 
     return on_press
 
+def auto_move(gon):
+    
+    # move up
+    gon.vert_motor.run_to_rel_pos(position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="coast")
+    gon.vert_motor.wait_while('running')
+
+    # move left/right
+    gon.hori_motor.run_to_rel_pos(position_sp=gon.hori_length*gon.direction, speed_sp=gon.auto_speed, stop_action="coast")
+    gon.hori_motor.wait_while('running')
+    gon.direction = gon.direction * (-1)
+
+    # move down
+    gon.vert_motor.run_to_rel_pos(position_sp=-gon.vert_length, speed_sp=gon.auto_speed, stop_action="coast")
+    gon.vert_motor.wait_while('running')
+
 def unbind_all_buttons(gon):
 
     gon.btn.on_up    = None

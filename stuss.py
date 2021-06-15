@@ -8,7 +8,7 @@ from ev3dev2.led import Leds
 from time import sleep
 from PIL import Image
 import os
-from stuss_utils import roll, unbind_all_buttons, menu_handler_function, handler_function
+from stuss_utils import roll, unbind_all_buttons, menu_handler_function, handler_function, auto_move
 os.system('setfont Lat15-TerminusBold14')
 
 
@@ -45,6 +45,13 @@ class Gondola():
 
         # Boot events
         self.leds.all_off()
+
+        self.vert_length = 500
+        self.hori_length = 700
+
+        self.auto_speed = 200
+        # values 1 and -1
+        self.direction = 1
 
 
 def exit(gon):
@@ -96,11 +103,29 @@ def free(gon):
 
     print('about to leave free')
 
+
 def auto(gon):
-    gon.run_menu = False
+    gon.menu_exit = False
     gon.lcd.clear()
     gon.lcd.update()
     print('auto')
+
+    def exit_to_menu(gon):
+        def on_press(state):
+            if(state):
+                gon.menu_exit = True
+        return on_press
+        
+
+    gon.btn.on_up    = menu_handler_function(auto_move, gon)
+    gon.rc.on_channel1_top_left = menu_handler_function(auto_move, gon)
+    gon.btn.on_enter = exit_to_menu(gon)
+
+    # gon.return_to_start()
+
+    while gon.menu_exit:
+        gon.btn.process()
+        sleep(0.01)
 
 def return_to_start(gon):
     gon.run_menu = False

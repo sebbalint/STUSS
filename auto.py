@@ -51,7 +51,7 @@ class Gondola():
         self.direction = 1
 
 
-def move():
+def auto_move():
     # move up
     gon.vert_motor.run_to_rel_pos(position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="coast")
     gon.vert_motor.wait_while('running')
