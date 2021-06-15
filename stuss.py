@@ -47,6 +47,12 @@ def auto():
     lcd.update()
     print('auto')
 
+def return_to_start():
+    run = False
+    lcd.clear()
+    lcd.update()
+    print('return_to_start')
+
 def calibrate():
     run = False
     lcd.clear()
