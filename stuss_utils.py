@@ -35,10 +35,17 @@ def unbind_all_buttons(gon):
 
     gon.btn.on_enter = None
 
-def handler_function(func, gon):
+def menu_handler_function(func, gon):
     
     def on_press(state):
         if(state):
             unbind_all_buttons(gon)
+            func(gon)
+    return on_press
+
+def handler_function(func, gon):
+    
+    def on_press(state):
+        if(state):
             func(gon)
     return on_press

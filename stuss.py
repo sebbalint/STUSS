@@ -8,7 +8,7 @@ from ev3dev2.led import Leds
 from time import sleep
 from PIL import Image
 import os
-from stuss_utils import roll, unbind_all_buttons, handler_function
+from stuss_utils import roll, unbind_all_buttons, menu_handler_function
 os.system('setfont Lat15-TerminusBold14')
 
 
@@ -129,11 +129,11 @@ def menu(gon):
     gon.lcd.image.paste(logo, (0,0))
     gon.lcd.update()
 
-    gon.btn.on_up    = handler_function(calibrate, gon)
-    gon.btn.on_down  = handler_function(exit, gon)
-    gon.btn.on_left  = handler_function(free, gon)
-    gon.btn.on_right = handler_function(auto, gon)
-    gon.btn.on_enter = handler_function(beep, gon)
+    gon.btn.on_up    = menu_handler_function(calibrate, gon)
+    gon.btn.on_down  = menu_handler_function(exit, gon)
+    gon.btn.on_left  = menu_handler_function(free, gon)
+    gon.btn.on_right = menu_handler_function(auto, gon)
+    gon.btn.on_enter = menu_handler_function(beep, gon)
 
     while gon.run_menu:
         gon.btn.process()
