@@ -32,7 +32,7 @@ class Gondola():
         # Connect remote control
         self.rc = InfraredSensor()
 
-        self.sound = Sound() 
+        self.sound = Sound()
         self.btn = Button()
         self.lcd = Display()
         self.leds = Leds()
@@ -95,7 +95,6 @@ def free(gon):
     unbind_all_buttons(gon)
 
     print('about to leave free')
-    # gon.return_to_start()
 
 def auto(gon):
     gon.run_menu = False
