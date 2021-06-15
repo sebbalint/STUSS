@@ -62,6 +62,7 @@ class Gondola():
         self.run_menu = True
         self.exit = False
 
+        # Funktionsvariablen
         self.menu_exit = True
 
         # Boot events
@@ -88,10 +89,10 @@ def free(gon):
     gon.btn.on_left  = roll(gon.hori_motor, gon.leds, gon.leds.RIGHT,  1)
     gon.btn.on_right = roll(gon.hori_motor, gon.leds, gon.leds.RIGHT, -1)
 
-    gon.rc.on_channel1_top_left    = roll(gon.vert_motor,    5)
-    gon.rc.on_channel1_bottom_left  = roll(gon.vert_motor,   -5)
-    gon.rc.on_channel1_top_right   = roll(gon.hori_motor,   5)
-    gon.rc.on_channel1_bottom_rightn = roll(gon.hori_motor,  -5)
+    gon.rc.on_channel1_top_left    = roll(gon.vert_motor, gon.leds, gon.leds.LEFT, 5)
+    gon.rc.on_channel1_bottom_left  = roll(gon.vert_motor, gon.leds, gon.leds.LEFT, -5)
+    gon.rc.on_channel1_top_right   = roll(gon.hori_motor, gon.leds, gon.leds.RIGHT, 5)
+    gon.rc.on_channel1_bottom_rightn = roll(gon.hori_motor, gon.leds, gon.leds.RIGHT, -5)
 
     print('free roll passed')
 
