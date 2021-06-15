@@ -52,6 +52,7 @@ def return_to_start():
     lcd.clear()
     lcd.update()
     print('return_to_start')
+    
 def calibrate(things):
     things.run = False
     things.lcd.clear()
