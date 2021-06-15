@@ -143,13 +143,13 @@ def menu(gon):
     while gon.run_menu:
         if(gon.btn.right):
             auto(gon)
-        if(gon.btn.left):
+        elif(gon.btn.left):
             free(gon)
-        if(gon.btn.up):
+        elif(gon.btn.up):
             calibrate(gon)
-        if(gon.btn.enter):
+        elif(gon.btn.enter):
             beep(gon)
-        if(gon.btn.down):
+        elif(gon.btn.down):
             exit(gon)
         #gon.btn.process()
         sleep(0.01)
@@ -167,4 +167,4 @@ while not gon.exit:
 gon.lcd.clear()
 gon.lcd.update()
 print('Goodbye')
-gon.sound.speak('Goodbye').wait()
+# gon.sound.speak('Goodbye').wait()
