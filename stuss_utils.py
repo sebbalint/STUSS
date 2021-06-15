@@ -20,3 +20,24 @@ def roll(motor, direction): # LEDs könnten hier noch blinken, TODO
             motor.stop(stop_action='brake')
 
     return on_press
+
+def unbind_all_buttons(gon):
+
+    gon.btn.on_up    = None
+    gon.btn.on_down  = None
+    gon.btn.on_left  = None
+    gon.btn.on_right = None
+
+    gon.rc.on_channel1_top_left    = None
+    gon.rc.on_channel1_bottom_left  = None
+    gon.rc.on_channel1_top_right   = None
+    gon.rc.on_channel1_bottom_right = None
+
+    gon.btn.on_enter = None
+
+def handler_function(func, gon):
+    
+    def on_press(state):
+        unbind_all_buttons(gon)
+        func(*gon)
+    return on_press

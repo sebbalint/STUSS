@@ -8,7 +8,7 @@ from ev3dev2.led import Leds
 from time import sleep
 from PIL import Image
 import os
-from stuss_utils import roll
+from stuss_utils import roll, unbind_all_buttons, handler_function
 os.system('setfont Lat15-TerminusBold14')
 
 
@@ -91,18 +91,7 @@ def free(gon):
         sleep(0.01)
     
     # unbind buttons
-
-    gon.btn.on_up    = None
-    gon.btn.on_down  = None
-    gon.btn.on_left  = None
-    gon.btn.on_right = None
-
-    gon.rc.on_channel1_top_left    = None
-    gon.rc.on_channel1_bottom_left  = None
-    gon.rc.on_channel1_top_right   = None
-    gon.rc.on_channel1_bottom_right = None
-
-    gon.btn.on_enter = None
+    unbind_all_buttons(gon)
 
     print('about to leave free')
     # gon.return_to_start()
@@ -139,19 +128,14 @@ def menu(gon):
     gon.lcd.image.paste(logo, (0,0))
     gon.lcd.update()
 
+    gon.btn.on_up    = handler_function(calibrate, gon)
+    gon.btn.on_down  = handler_function(exit, gon)
+    gon.btn.on_left  = handler_function(free, gon)
+    gon.btn.on_right = handler_function(auto, gon)
+    gon.btn.on_enter = handler_function(beep, gon)
 
     while gon.run_menu:
-        if(gon.btn.right):
-            auto(gon)
-        elif(gon.btn.left):
-            free(gon)
-        elif(gon.btn.up):
-            calibrate(gon)
-        elif(gon.btn.enter):
-            beep(gon)
-        elif(gon.btn.down):
-            exit(gon)
-        #gon.btn.process()
+        gon.btn.process()
         sleep(0.01)
 
 
