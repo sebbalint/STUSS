@@ -36,7 +36,7 @@ class Gondola():
         self.lcd = Display()
         self.leds = Leds()
 
-        self.run = True
+        self.run_menu = True
         self.exit = False
 
         # Boot events
@@ -44,32 +44,32 @@ class Gondola():
 
 
 def exit(gon):
-    gon.run = False
+    gon.run_menu = False
     gon.exit = True
     gon.lcd.clear()
     gon.lcd.update()
     print('exit')
 
 def free(gon):
-    gon.run = False
+    gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
     print('free')
 
 def auto(gon):
-    gon.run = False
+    gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
     print('auto')
 
 def return_to_start(gon):
-    gon.run = False
+    gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
     print('return_to_start')
     
 def calibrate(gon):
-    gon.run = False
+    gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
     print('cal')
@@ -79,7 +79,7 @@ def beep(gon):
     gon.lcd.clear()
     gon.lcd.update()
     gon.sound.beep()
-    gon.run = False
+    gon.run_menu = False
     print('beep')
     sleep(5)
 
@@ -89,7 +89,7 @@ def menu(gon):
     gon.lcd.update()
 
 
-    while gon.run:
+    while gon.run_menu:
         if(gon.btn.right):
             auto(gon)
         if(gon.btn.left):
@@ -110,7 +110,7 @@ def menu(gon):
 gon = Gondola()
 
 while not gon.exit:
-    gon.run = True
+    gon.run_menu = True
     menu(gon)
 
 gon.lcd.clear()
