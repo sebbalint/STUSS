@@ -56,6 +56,48 @@ def free(gon):
     gon.lcd.update()
     print('free')
 
+    # set buttons (Button speed ist extra noch nicht korrekt)
+
+    gon.button.on_up    = roll(gon.vert_motor, gon.leds, gon.leds.LEFT,   1)
+    gon.button.on_down  = roll(gon.vert_motor, gon.leds, gon.leds.LEFT,  -1)
+    gon.button.on_left  = roll(gon.hori_motor, gon.leds, gon.leds.RIGHT,  1)
+    gon.button.on_right = roll(gon.hori_motor, gon.leds, gon.leds.RIGHT, -1)
+
+    gon.rc.on_channel1_top_left    = roll(gon.vert_motor,    5)
+    gon.rc.on_channel1_bottom_left  = roll(gon.vert_motor,   -5)
+    gon.rc.on_channel1_top_right   = roll(gon.hori_motor,   5)
+    gon.rc.on_channel1_bottom_rightn = roll(gon.hori_motor,  -5)
+
+    menu_exit = False
+
+    def exit_to_menu(menu_exit):
+        def on_press(state):
+            menu_exit = True
+        return on_press
+
+    gon.button.on_enter = exit_to_menu(menu_exit)
+
+    while not menu_exit:
+        gon.button.process()
+        gon.rc.process()
+        sleep(0.01)
+    
+    # unbind buttons
+
+    gon.button.on_up    = None
+    gon.button.on_down  = None
+    gon.button.on_left  = None
+    gon.button.on_right = None
+
+    gon.rc.on_channel1_top_left    = None
+    gon.rc.on_channel1_bottom_left  = None
+    gon.rc.on_channel1_top_right   = None
+    gon.rc.on_channel1_bottom_rightn = None
+
+    gon.button.on_enter = None
+
+    # gon.return_to_start()
+
 def auto(gon):
     gon.run_menu = False
     gon.lcd.clear()
