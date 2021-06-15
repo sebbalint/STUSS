@@ -41,5 +41,5 @@ def handler_function(func, gon):
         print('check1')
         unbind_all_buttons(gon)
         print('check2')
-        func(*gon)
+        func(gon)
     return on_press
