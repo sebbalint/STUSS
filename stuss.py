@@ -11,7 +11,7 @@ import os
 from stuss_utils import roll
 os.system('setfont Lat15-TerminusBold14')
 
-class Things():
+class Gondola():
 
 
     def __init__(self, large_motor_port=OUTPUT_A,  medium_motor_port=OUTPUT_B):
@@ -26,7 +26,7 @@ class Things():
 
         # Connect two large motors on output ports B and C
         self.hori_motor = LargeMotor(large_motor_port)
-        self.vert_motor = MediumMotor(medium_motor_port) 
+        self.vert_motor = MediumMotor(medium_motor_port)
 
         # Connect remote control
         self.rc = InfraredSensor()
@@ -43,77 +43,77 @@ class Things():
         self.leds.all_off()
 
 
-def exit(things):
-    things.run = False
-    things.exit = True
-    things.lcd.clear()
-    things.lcd.update()
+def exit(gon):
+    gon.run = False
+    gon.exit = True
+    gon.lcd.clear()
+    gon.lcd.update()
     print('exit')
 
-def free(things):
-    things.run = False
-    things.lcd.clear()
-    things.lcd.update()
+def free(gon):
+    gon.run = False
+    gon.lcd.clear()
+    gon.lcd.update()
     print('free')
 
-def auto(things):
-    things.run = False
-    things.lcd.clear()
-    things.lcd.update()
+def auto(gon):
+    gon.run = False
+    gon.lcd.clear()
+    gon.lcd.update()
     print('auto')
 
 def return_to_start():
     run = False
-    lcd.clear()
-    lcd.update()
+    gon.lcd.clear()
+    gon.lcd.update()
     print('return_to_start')
     
-def calibrate(things):
-    things.run = False
-    things.lcd.clear()
-    things.lcd.update()
+def calibrate(gon):
+    gon.run = False
+    gon.lcd.clear()
+    gon.lcd.update()
     print('cal')
 
-def beep(things):
+def beep(gon):
     # Sound.beep()
-    things.lcd.clear()
-    things.lcd.update()
-    things.sound.beep()
-    things.run = False
+    gon.lcd.clear()
+    gon.lcd.update()
+    gon.sound.beep()
+    gon.run = False
     print('beep')
     sleep(5)
 
-def menu(things):
+def menu(gon):
     logo = Image.open('/home/robot/STUSS/Images/Menu.png')
-    things.lcd.image.paste(logo, (0,0))
-    things.lcd.update()
+    gon.lcd.image.paste(logo, (0,0))
+    gon.lcd.update()
 
 
-    while things.run:
-        if(things.btn.right):
-            auto(things)
-        if(things.btn.left):
-            free(things)
-        if(things.btn.up):
-            calibrate(things)
-        if(things.btn.enter):
-            beep(things)
-        if(things.btn.down):
-            exit(things)
-        #things.btn.process()
+    while gon.run:
+        if(gon.btn.right):
+            auto(gon)
+        if(gon.btn.left):
+            free(gon)
+        if(gon.btn.up):
+            calibrate(gon)
+        if(gon.btn.enter):
+            beep(gon)
+        if(gon.btn.down):
+            exit(gon)
+        #gon.btn.process()
         sleep(0.01)
 
 
 
 # Main
 
-things = Things()
+gon = Gondola()
 
-while not things.exit:
-    things.run = True
-    menu(things)
+while not gon.exit:
+    gon.run = True
+    menu(gon)
 
-things.lcd.clear()
-things.lcd.update()
+gon.lcd.clear()
+gon.lcd.update()
 print('Goodbye')
-things.sound.speak('Goodbye').wait()
+gon.sound.speak('Goodbye').wait()
