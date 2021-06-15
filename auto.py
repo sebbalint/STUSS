@@ -38,6 +38,7 @@ class Gondola():
 
         self.run = True
         self.exit = False
+        self.exit_menu = False
 
         # Boot events
         self.leds.all_off()
@@ -69,12 +70,23 @@ gon = Gondola()
 
 print('start')
 sleep(3)
-gon.menu.exit = True
+gon.menu_exit = False
+
+gon.btn.on_up = move()
+gon.rc.on_channel1_top_left = move()
+
+def exit_to_menu(gon):
+    def on_press(state):
+        gon.menu_exit = True
+    return on_press
+        
+
+gon.btn.on_enter = exit_to_menu(gon)
+
 while not gon.menu_exit:
-    if(gon.btn.top):
-        move()
-    if(gon.rc.top_left(channel=1)):
-        move()
+    gon.btn.process()
+    gon.rc.process()
+    sleep(0.01)
     
 
 gon.lcd.clear()
