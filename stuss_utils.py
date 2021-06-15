@@ -1,6 +1,6 @@
 from ev3dev2.led import Leds
 
-def roll(motor, leds, led_group, direction):
+def roll(motor, direction): # LEDs könnten hier noch blinken, TODO
     """
     Generate remote control event handler. It rolls given motor into given
     direction (1 for forward, -1 for backward). When motor rolls forward, the
@@ -15,10 +15,8 @@ def roll(motor, leds, led_group, direction):
         if state:
             # Roll when button is pressed
             motor.run_forever(speed_sp=90*direction)
-            leds.set_color(led_group, Leds.GREEN if direction > 0 else Leds.RED)
         else:
             # Stop otherwise
             motor.stop(stop_action='brake')
-            leds.all_off()
 
     return on_press

@@ -8,29 +8,9 @@ from ev3dev2.led import Leds
 from time import sleep
 from PIL import Image
 import os
-#from stuss_utils import roll
+from stuss_utils import roll
 os.system('setfont Lat15-TerminusBold14')
 
-def roll(motor, direction):
-    """
-    Generate remote control event handler. It rolls given motor into given
-    direction (1 for forward, -1 for backward). When motor rolls forward, the
-    given led group flashes green, when backward -- red. When motor stops, the
-    leds are turned off.
-
-    The on_press function has signature required by RemoteControl class.
-    It takes boolean state parameter; True when button is pressed, False
-    otherwise.
-    """
-    def on_press(state):
-        if state:
-            # Roll when button is pressed
-            motor.run_forever(speed_sp=90*direction)
-        else:
-            # Stop otherwise
-            motor.stop(stop_action='brake')
-
-    return on_press
 
 class Gondola():
 
