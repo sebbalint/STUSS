@@ -11,48 +11,55 @@ import os
 from stuss_utils import roll
 os.system('setfont Lat15-TerminusBold14')
 
+class Things():
 
 
-# Set base speed
-#horSpeed = 50
-#verSpeed = 50
+    def __init__(self, large_motor_port=OUTPUT_A,  medium_motor_port=OUTPUT_B):
 
-# Connect two large motors on output ports B and C
-hori_motor = LargeMotor(OUTPUT_A)
-vert_motor = MediumMotor(OUTPUT_B) 
+        # Set base speed
+        #horSpeed = 50
+        #verSpeed = 50
 
-# Connect remote control
-rc = InfraredSensor()
+        # Connect two large motors on output ports B and C
+        # lmotor = LargeMotor('outB')
+        # mmotor = MediumMotor('outC')
 
-sound = Sound() 
-btn = Button()
-lcd = Display()
-leds = Leds()
+        # Connect two large motors on output ports B and C
+        self.hori_motor = LargeMotor(large_motor_port)
+        self.vert_motor = MediumMotor(medium_motor_port) 
 
-run = True
-exit = False
+        # Connect remote control
+        self.rc = InfraredSensor()
 
-# Boot events
-leds.all_off()
+        self.sound = Sound() 
+        self.btn = Button()
+        self.lcd = Display()
+        self.leds = Leds()
+
+        self.run = True
+        self.exit = False
+
+        # Boot events
+        self.leds.all_off()
 
 
-def exit():
-    run = False
-    exit = True
-    lcd.clear()
-    lcd.update()
+def exit(things):
+    things.run = False
+    things.exit = True
+    things.lcd.clear()
+    things.lcd.update()
     print('exit')
 
-def free():
-    run = False
-    lcd.clear()
-    lcd.update()
+def free(things):
+    things.run = False
+    things.lcd.clear()
+    things.lcd.update()
     print('free')
 
-def auto():
-    run = False
-    lcd.clear()
-    lcd.update()
+def auto(things):
+    things.run = False
+    things.lcd.clear()
+    things.lcd.update()
     print('auto')
 
 def return_to_start():
@@ -60,49 +67,53 @@ def return_to_start():
     lcd.clear()
     lcd.update()
     print('return_to_start')
-
-def calibrate():
-    run = False
-    lcd.clear()
-    lcd.update()
+    
+def calibrate(things):
+    things.run = False
+    things.lcd.clear()
+    things.lcd.update()
     print('cal')
 
-def beep():
-    lcd.clear()
-    lcd.update()
-    sound.beep()
-    run = False
+def beep(things):
+    # Sound.beep()
+    things.lcd.clear()
+    things.lcd.update()
+    things.sound.beep()
+    things.run = False
     print('beep')
     sleep(5)
 
-def menu():
+def menu(things):
     logo = Image.open('/home/robot/STUSS/Images/Menu.png')
-    lcd.image.paste(logo, (0,0))
-    lcd.update()
+    things.lcd.image.paste(logo, (0,0))
+    things.lcd.update()
 
 
-    while run:
-        if(btn.right):
-            auto()
-        if(btn.left):
-            free()
-        if(btn.up):
-            calibrate()
-        if(btn.enter):
-            beep()
-        if(btn.down):
-            exit()
+    while things.run:
+        if(things.btn.right):
+            auto(things)
+        if(things.btn.left):
+            free(things)
+        if(things.btn.up):
+            calibrate(things)
+        if(things.btn.enter):
+            beep(things)
+        if(things.btn.down):
+            exit(things)
+        #things.btn.process()
         sleep(0.01)
 
 
 
 # Main
 
-while not exit:
-    run = True
-    menu()
+things = Things()
 
-lcd.clear()
-lcd.update()
+while not things.exit:
+    things.run = True
+    menu(things)
+
+things.lcd.clear()
+things.lcd.update()
 print('Goodbye')
-sound.speak('Goodbye').wait()
+things.sound.speak('Goodbye').wait()
