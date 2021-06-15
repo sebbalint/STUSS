@@ -11,7 +11,7 @@ import os
 #from stuss_utils import roll
 os.system('setfont Lat15-TerminusBold14')
 
-def roll(motor, leds, led_group, direction):
+def roll(motor, direction):
     """
     Generate remote control event handler. It rolls given motor into given
     direction (1 for forward, -1 for backward). When motor rolls forward, the
@@ -26,11 +26,9 @@ def roll(motor, leds, led_group, direction):
         if state:
             # Roll when button is pressed
             motor.run_forever(speed_sp=90*direction)
-            leds.set_color(led_group, Leds.GREEN if direction > 0 else Leds.RED)
         else:
             # Stop otherwise
             motor.stop(stop_action='brake')
-            leds.all_off()
 
     return on_press
 
@@ -84,15 +82,15 @@ def free(gon):
 
     # set buttons (Button speed ist extra noch nicht korrekt)
 
-    gon.btn.on_up    = roll(gon.vert_motor, gon.leds, gon.leds.LEFT,   1)
-    gon.btn.on_down  = roll(gon.vert_motor, gon.leds, gon.leds.LEFT,  -1)
-    gon.btn.on_left  = roll(gon.hori_motor, gon.leds, gon.leds.RIGHT,  1)
-    gon.btn.on_right = roll(gon.hori_motor, gon.leds, gon.leds.RIGHT, -1)
+    gon.btn.on_up    = roll(gon.vert_motor, 1)
+    gon.btn.on_down  = roll(gon.vert_motor, -1)
+    gon.btn.on_left  = roll(gon.hori_motor, 1)
+    gon.btn.on_right = roll(gon.hori_motor, -1)
 
-    gon.rc.on_channel1_top_left    = roll(gon.vert_motor, gon.leds, gon.leds.LEFT, 5)
-    gon.rc.on_channel1_bottom_left  = roll(gon.vert_motor, gon.leds, gon.leds.LEFT, -5)
-    gon.rc.on_channel1_top_right   = roll(gon.hori_motor, gon.leds, gon.leds.RIGHT, 5)
-    gon.rc.on_channel1_bottom_rightn = roll(gon.hori_motor, gon.leds, gon.leds.RIGHT, -5)
+    gon.rc.on_channel1_top_left    = roll(gon.vert_motor, 5)
+    gon.rc.on_channel1_bottom_left  = roll(gon.vert_motor, -5)
+    gon.rc.on_channel1_top_right   = roll(gon.hori_motor, 5)
+    gon.rc.on_channel1_bottom_rightn = roll(gon.hori_motor, -5)
 
     print('free roll passed')
 
