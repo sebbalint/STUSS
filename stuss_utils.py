@@ -38,6 +38,8 @@ def unbind_all_buttons(gon):
 def handler_function(func, gon):
     
     def on_press(state):
+        print('check1')
         unbind_all_buttons(gon)
+        print('check2')
         func(*gon)
     return on_press
