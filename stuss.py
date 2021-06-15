@@ -8,7 +8,7 @@ from ev3dev2.led import Leds
 from time import sleep
 from PIL import Image
 import os
-from stuss_utils import roll, unbind_all_buttons, menu_handler_function
+from stuss_utils import roll, unbind_all_buttons, menu_handler_function, handler_function
 os.system('setfont Lat15-TerminusBold14')
 
 
