@@ -68,7 +68,6 @@ def free(gon):
     print('free')
 
     # set buttons
-
     bind_buttons_free_move(gon)
 
     print('free roll passed')
@@ -85,29 +84,15 @@ def free(gon):
     gon.btn.on_enter = exit_to_menu(gon)
     print('enter assigned')
 
-# start testing
-    testest = 0
-#end testing
-
     while not gon.menu_exit:
         gon.btn.process()
         gon.rc.process()
         sleep(0.01)
-# start testing
-        testest += 1
-        if (testest >= 50):
-            testest = 0
-            print('------')
-            print(gon.vert_motor.position)
-            print(gon.hori_motor.position)
-
-#end testing
     
     # unbind buttons
     unbind_all_buttons(gon)
 
     print('leaving free transit mode')
-
 
 def auto(gon):
     gon.menu_exit = False
@@ -129,7 +114,7 @@ def auto(gon):
 
     print('buttons assigned')
 
-    # gon.return_to_start()
+    gon.return_to_start()
 
     while not gon.menu_exit:
         gon.btn.process()
@@ -144,7 +129,16 @@ def return_to_start(gon):
     gon.lcd.clear()
     gon.lcd.update()
     print('return_to_start')
-    
+
+    gon.vert_motor.run_to_abs_pos(position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="brake")
+    gon.vert_motor.wait_while('running')
+
+    gon.hori_motor.run_to_abs_pos(position_sp=0, speed_sp=gon.auto_speed, stop_action="brake")
+    gon.hori_motor.wait_while('running')
+
+    gon.vert_motor.run_to_abs_pos(position_sp=0, speed_sp=gon.auto_speed, stop_action="brake")
+    gon.vert_motor.wait_while('running')
+
 def calibrate(gon):
     gon.run_menu = False
     gon.lcd.clear()
@@ -211,6 +205,7 @@ def calibrate(gon):
 
     print('calibration finished')
 
+    sleep(2)
 
 def beep(gon):
     # Sound.beep()
@@ -241,6 +236,8 @@ def menu(gon):
 # Main
 
 gon = Gondola()
+
+calibrate(gon)
 
 while not gon.exit:
     gon.run_menu = True
