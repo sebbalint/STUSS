@@ -59,7 +59,6 @@ def exit(gon):
 def free(gon):
     gon.run_menu = False
     gon.lcd.clear()
-    gon.lcd.update()
     gon.lcd.draw.text((10,10), 'free', font=fonts.load('luBS14'))
     gon.lcd.update()
 
@@ -93,11 +92,12 @@ def free(gon):
 def return_to_start(gon):
 
     gon.sound.beep()
-    sleep(2)
-    gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
-    print('return_to_start')
+    gon.lcd.draw.text((10,10), 'return_to_start', font=fonts.load('luBS14'))
+    gon.lcd.update()
+    sleep(2)
+    gon.run_menu = False
     gon.direction = 1
 
     gon.vert_motor.run_to_abs_pos(position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="brake")
@@ -130,8 +130,6 @@ def auto(gon):
     gon.rc.on_channel1_top_left = handler_function(auto_move, gon)
     gon.btn.on_enter = exit_to_menu(gon)
 
-    print('buttons assigned')
-
     while not gon.menu_exit:
         gon.btn.process()
         gon.rc.process()
@@ -144,7 +142,8 @@ def calibrate(gon):
     gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
-    print('calibrating')
+    gon.lcd.draw.text((10,10), 'calibrating.. \nPlease move the gondola to the desired loading position on the right hand side of the bridge. \nIf you have reached the lowest and most right position confirm by pressing Enter.', font=fonts.load('luBS14'))
+    gon.lcd.update()
 
     bind_buttons_free_move(gon)
 
@@ -160,22 +159,21 @@ def calibrate(gon):
     gon.menu_exit = False
     gon.btn.on_enter = set_start_position(gon)
 
-    print('Please move the gondola to the desired loading position on the right hand side of the bridge.')
-    print('If you have reached to lowest and most right position confirm by pressing Enter.')
-
-
     while not gon.menu_exit:
         gon.btn.process()
         gon.rc.process()
         sleep(0.01)
 
-    print('Start position confirmed at ')
-    print(gon.vert_motor.position)
-    print(gon.hori_motor.position)
+    gon.lcd.draw.text((10,10), 'Start position confirmed', font=fonts.load('luBS14'))
+    gon.lcd.update()
+    #print(gon.vert_motor.position)
+    #print(gon.hori_motor.position)
 
     sleep(2)
 
     gon.lcd.clear()
+    gon.lcd.update()
+    gon.lcd.draw.text((10,10), 'calibrating.. \nPlease move the gondola to the desired travelling height on the left hand side of the bridge. \nIf you have reached to highest and most left position confirm by pressing Enter.', font=fonts.load('luBS14'))
     gon.lcd.update()
 
     def set_travel_position(gon):
@@ -190,21 +188,20 @@ def calibrate(gon):
     gon.menu_exit = False
     gon.btn.on_enter = set_travel_position(gon)
 
-    print('Please move the gondola to the desired traveling height on the left hand side of the bridge.')
-    print('If you have reached to highest and most left position confirm by pressing Enter.')
-
     while not gon.menu_exit:
         gon.btn.process()
         gon.rc.process()
         sleep(0.01)
 
-    print('Travel position confirmed at ')
-    print(gon.vert_motor.position)
-    print(gon.hori_motor.position)
+    gon.lcd.draw.text((10,10), 'Travel position confirmed', font=fonts.load('luBS14'))
+    gon.lcd.update()
+    #print(gon.vert_motor.position)
+    #print(gon.hori_motor.position)
 
     unbind_all_buttons(gon)
 
-    print('calibration finished')
+    gon.lcd.draw.text((10,10), 'calibration finished.', font=fonts.load('luBS14'))
+    gon.lcd.update()
 
     sleep(2)
 
@@ -213,7 +210,8 @@ def beep(gon):
     gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
-    print('beep')
+    gon.lcd.draw.text((10,10), 'beep', font=fonts.load('luBS14'))
+    gon.lcd.update()
     gon.sound.speak("beep beep I am a sheep", play_type=Sound.PLAY_WAIT_FOR_COMPLETE)
     sleep(2)
 
