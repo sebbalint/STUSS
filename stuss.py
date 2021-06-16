@@ -87,6 +87,21 @@ def free(gon):
 
     print('leaving free transit mode')
 
+def return_to_start(gon):
+    gon.run_menu = False
+    gon.lcd.clear()
+    gon.lcd.update()
+    print('return_to_start')
+
+    gon.vert_motor.run_to_abs_pos(position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="brake")
+    gon.vert_motor.wait_while('running')
+
+    gon.hori_motor.run_to_abs_pos(position_sp=0, speed_sp=gon.auto_speed, stop_action="brake")
+    gon.hori_motor.wait_while('running')
+
+    gon.vert_motor.run_to_abs_pos(position_sp=0, speed_sp=gon.auto_speed, stop_action="brake")
+    gon.vert_motor.wait_while('running')
+
 def auto(gon):
     gon.menu_exit = False
     gon.run_menu = False
@@ -107,7 +122,9 @@ def auto(gon):
 
     print('buttons assigned')
 
-    gon.return_to_start()
+    gon.return_to_start(gon)
+
+    print("after")
 
     while not gon.menu_exit:
         gon.btn.process()
@@ -117,20 +134,6 @@ def auto(gon):
     # unbind buttons
     unbind_all_buttons(gon)
 
-def return_to_start(gon):
-    gon.run_menu = False
-    gon.lcd.clear()
-    gon.lcd.update()
-    print('return_to_start')
-
-    gon.vert_motor.run_to_abs_pos(position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="brake")
-    gon.vert_motor.wait_while('running')
-
-    gon.hori_motor.run_to_abs_pos(position_sp=0, speed_sp=gon.auto_speed, stop_action="brake")
-    gon.hori_motor.wait_while('running')
-
-    gon.vert_motor.run_to_abs_pos(position_sp=0, speed_sp=gon.auto_speed, stop_action="brake")
-    gon.vert_motor.wait_while('running')
 
 def calibrate(gon):
     gon.run_menu = False
