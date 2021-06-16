@@ -21,7 +21,7 @@ def roll(motor, direction): # LEDs könnten hier noch blinken, TODO
 
     return on_press
 
-def auto_move(gon):
+def auto_move(gon): # TODO sleeps zwischen die moves, ramp ups vllt, andere stop action
     
     # move up
     gon.vert_motor.run_to_rel_pos(position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="coast")

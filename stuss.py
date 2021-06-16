@@ -117,15 +117,21 @@ def auto(gon):
         return on_press
         
 
-    gon.btn.on_up    = menu_handler_function(auto_move, gon)
-    gon.rc.on_channel1_top_left = menu_handler_function(auto_move, gon)
+    gon.btn.on_up    = handler_function(auto_move, gon)
+    gon.rc.on_channel1_top_left = handler_function(auto_move, gon)
     gon.btn.on_enter = exit_to_menu(gon)
+
+    print('buttons assigned')
 
     # gon.return_to_start()
 
     while gon.menu_exit:
         gon.btn.process()
+        gon.rc.process()
         sleep(0.01)
+
+    # unbind buttons
+    unbind_all_buttons(gon)
 
 def return_to_start(gon):
     gon.run_menu = False
