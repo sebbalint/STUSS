@@ -106,13 +106,16 @@ def free(gon):
 
 def auto(gon):
     gon.menu_exit = False
+    gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
     print('auto')
 
     def exit_to_menu(gon):
+        print("enter")
         def on_press(state):
             if(state):
+                ("exit")
                 gon.menu_exit = True
         return on_press
         
@@ -125,7 +128,7 @@ def auto(gon):
 
     # gon.return_to_start()
 
-    while gon.menu_exit:
+    while not gon.menu_exit:
         gon.btn.process()
         gon.rc.process()
         sleep(0.01)

@@ -23,6 +23,7 @@ def roll(motor, direction): # LEDs könnten hier noch blinken, TODO
 
 def auto_move(gon): # TODO sleeps zwischen die moves, ramp ups vllt, andere stop action
     
+    print("moving")
     # move up
     gon.vert_motor.run_to_rel_pos(position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="coast")
     gon.vert_motor.wait_while('running')
@@ -59,8 +60,10 @@ def menu_handler_function(func, gon):
     return on_press
 
 def handler_function(func, gon):
-    
+    print("button p")
     def on_press(state):
+        print("on_Press")
         if(state):
+            print("funky")
             func(gon)
     return on_press
