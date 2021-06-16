@@ -53,18 +53,20 @@ def exit(gon):
     gon.exit = True
     gon.lcd.clear()
     gon.lcd.update()
-    lcd.draw.text((10,10), 'exit', font=fonts.load('luBS14'))
+    gon.lcd.draw.text((10,10), 'exit', font=fonts.load('luBS14'))
+    gon.lcd.update()
 
 def free(gon):
     gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
-    lcd.draw.text((10,10), 'free', font=fonts.load('luBS14'))
+    gon.lcd.draw.text((10,10), 'free', font=fonts.load('luBS14'))
+    gon.lcd.update()
 
     # set buttons
     bind_buttons_free_move(gon)
 
-    print('free roll passed')
+    # print('free roll passed')
 
     gon.menu_exit = False
 
@@ -76,7 +78,7 @@ def free(gon):
         
 
     gon.btn.on_enter = exit_to_menu(gon)
-    print('enter assigned')
+    # print('enter assigned')
 
     while not gon.menu_exit:
         gon.btn.process()
@@ -86,7 +88,7 @@ def free(gon):
     # unbind buttons
     unbind_all_buttons(gon)
 
-    print('leaving free transit mode')
+    # print('leaving free transit mode')
 
 def return_to_start(gon):
 
@@ -96,6 +98,7 @@ def return_to_start(gon):
     gon.lcd.clear()
     gon.lcd.update()
     print('return_to_start')
+    gon.direction = 1
 
     gon.vert_motor.run_to_abs_pos(position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="brake")
     gon.vert_motor.wait_while('running')
@@ -207,12 +210,12 @@ def calibrate(gon):
 
 def beep(gon):
     # Sound.beep()
+    gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
-    gon.run_menu = False
     print('beep')
-    gon.sound.speak("beep beep I am a sheep").wait()
-    sleep(5)
+    gon.sound.speak("beep beep I am a sheep", play_type=Sound.PLAY_WAIT_FOR_COMPLETE)
+    sleep(2)
 
 def menu(gon):
     logo = Image.open('/home/robot/STUSS/Images/Menu.png')
