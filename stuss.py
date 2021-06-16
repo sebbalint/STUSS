@@ -7,6 +7,7 @@ from ev3dev2.sensor.lego import InfraredSensor
 from ev3dev2.led import Leds
 from time import sleep
 from PIL import Image
+import ev3dev2.fonts as fonts
 import os
 from stuss_utils import bind_buttons_free_move, unbind_all_buttons, menu_handler_function, handler_function, auto_move
 os.system('setfont Lat15-TerminusBold14')
@@ -52,13 +53,13 @@ def exit(gon):
     gon.exit = True
     gon.lcd.clear()
     gon.lcd.update()
-    print('exit')
+    lcd.draw.text((10,10), 'exit', font=fonts.load('luBS14'))
 
 def free(gon):
     gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
-    print('free')
+    lcd.draw.text((10,10), 'free', font=fonts.load('luBS14'))
 
     # set buttons
     bind_buttons_free_move(gon)
@@ -88,6 +89,9 @@ def free(gon):
     print('leaving free transit mode')
 
 def return_to_start(gon):
+
+    gon.sound.beep()
+    sleep(2)
     gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
@@ -107,10 +111,10 @@ def auto(gon):
     gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
-
+    logo = Image.open('/home/robot/STUSS/Images/auto_menu.png')
+    gon.lcd.image.paste(logo, (0,0))
+    gon.lcd.update()
     return_to_start(gon)
-    
-    print('auto')
 
     def exit_to_menu(gon):
         def on_press(state):
@@ -205,9 +209,9 @@ def beep(gon):
     # Sound.beep()
     gon.lcd.clear()
     gon.lcd.update()
-    gon.sound.beep()
     gon.run_menu = False
     print('beep')
+    gon.sound.speak("beep beep I am a sheep").wait()
     sleep(5)
 
 def menu(gon):
@@ -216,10 +220,10 @@ def menu(gon):
     gon.lcd.update()
 
     gon.btn.on_up    = menu_handler_function(calibrate, gon)
-    gon.btn.on_down  = menu_handler_function(exit, gon)
+    gon.btn.on_down  = menu_handler_function(beep, gon)
     gon.btn.on_left  = menu_handler_function(free, gon)
     gon.btn.on_right = menu_handler_function(auto, gon)
-    gon.btn.on_enter = menu_handler_function(beep, gon)
+    gon.btn.on_enter = menu_handler_function(exit, gon)
 
     while gon.run_menu:
         gon.btn.process()
@@ -239,4 +243,3 @@ while not gon.exit:
 gon.lcd.clear()
 gon.lcd.update()
 print('Goodbye')
-# gon.sound.speak('Goodbye').wait()
