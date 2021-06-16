@@ -85,10 +85,21 @@ def free(gon):
     gon.btn.on_enter = exit_to_menu(gon)
     print('enter assigned')
 
+# start testing
+    testest = 0
+#end testing
+
     while not gon.menu_exit:
         gon.btn.process()
         gon.rc.process()
         sleep(0.01)
+# start testing
+        ++testest
+        if (testest >= 50):
+            testest = 0
+            print(gon.vert_motor.position + ' ' + gon.hori_motor.position)
+
+#end testing
     
     # unbind buttons
     unbind_all_buttons(gon)
@@ -147,6 +158,7 @@ def calibrate(gon):
                 gon.vert_motor.position = 0
                 gon.hori_motor.position = 0 # TODO geht das wirklich?
                 gon.menu_exit = True
+                print('Lebe ich noch?')
                 
         return on_press
     
