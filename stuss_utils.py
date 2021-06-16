@@ -60,10 +60,7 @@ def menu_handler_function(func, gon):
     return on_press
 
 def handler_function(func, gon):
-    print("button p")
     def on_press(state):
-        print("on_Press")
         if(state):
-            print("funky")
             func(gon)
     return on_press

@@ -112,10 +112,8 @@ def auto(gon):
     print('auto')
 
     def exit_to_menu(gon):
-        print("enter")
         def on_press(state):
             if(state):
-                ("exit")
                 gon.menu_exit = True
         return on_press
         
