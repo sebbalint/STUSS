@@ -17,13 +17,6 @@ class Gondola():
 
     def __init__(self, large_motor_port=OUTPUT_A,  medium_motor_port=OUTPUT_B):
 
-        # Set base speed
-        #horSpeed = 50
-        #verSpeed = 50
-
-        # Connect two large motors on output ports B and C
-        # lmotor = LargeMotor('outB')
-        # mmotor = MediumMotor('outC')
 
         # Connect two large motors on output ports B and C
         self.hori_motor = LargeMotor(large_motor_port)
