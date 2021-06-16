@@ -133,7 +133,6 @@ def auto(gon):
     # unbind buttons
     unbind_all_buttons(gon)
 
-
 def calibrate(gon):
     gon.run_menu = False
     gon.lcd.clear()
@@ -225,7 +224,6 @@ def menu(gon):
     while gon.run_menu:
         gon.btn.process()
         sleep(0.01)
-
 
 
 # Main
