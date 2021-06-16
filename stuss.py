@@ -108,7 +108,7 @@ def auto(gon):
     gon.lcd.clear()
     gon.lcd.update()
 
-    gon.return_to_start(gon)
+    return_to_start(gon)
     
     print('auto')
 
