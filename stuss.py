@@ -94,10 +94,12 @@ def free(gon):
         gon.rc.process()
         sleep(0.01)
 # start testing
-        ++testest
+        testest += 1
         if (testest >= 50):
             testest = 0
-            print(gon.vert_motor.position + ' ' + gon.hori_motor.position)
+            print('------')
+            print(gon.vert_motor.position)
+            print(gon.hori_motor.position)
 
 #end testing
     
@@ -154,11 +156,9 @@ def calibrate(gon):
     def set_start_position(gon):
         def on_press(state):
             if(state):
-                print('ich lebe noch')
                 gon.vert_motor.position = 0
                 gon.hori_motor.position = 0 # TODO geht das wirklich?
                 gon.menu_exit = True
-                print('Lebe ich noch?')
                 
         return on_press
     
@@ -174,7 +174,9 @@ def calibrate(gon):
         gon.rc.process()
         sleep(0.01)
 
-    print('Start position confirmed at ' + gon.vert_motor.position + ' ' + gon.hori_motor.position)
+    print('Start position confirmed at ')
+    print(gon.vert_motor.position)
+    print(gon.hori_motor.position)
 
     sleep(2)
 
@@ -201,7 +203,9 @@ def calibrate(gon):
         gon.rc.process()
         sleep(0.01)
 
-    print('Travel position confirmed at ' + gon.vert_motor.position + ' ' + gon.hori_motor.position)
+    print('Travel position confirmed at ')
+    print(gon.vert_motor.position)
+    print(gon.hori_motor.position)
 
     unbind_all_buttons(gon)
 
