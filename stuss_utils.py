@@ -53,6 +53,9 @@ def unbind_all_buttons(gon):
 
     gon.btn.on_enter = None
 
+def bind_buttons_limited_free_move(gon):
+    pass
+
 def bind_buttons_free_move(gon): # (Button speed ist extra noch nicht korrekt)
 
     gon.btn.on_up    = roll(gon.vert_motor, 1)
