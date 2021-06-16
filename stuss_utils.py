@@ -51,6 +51,18 @@ def unbind_all_buttons(gon):
 
     gon.btn.on_enter = None
 
+def bind_buttons_free_move(gon): # (Button speed ist extra noch nicht korrekt)
+
+    gon.btn.on_up    = roll(gon.vert_motor, 1)
+    gon.btn.on_down  = roll(gon.vert_motor, -1)
+    gon.btn.on_left  = roll(gon.hori_motor, 1)
+    gon.btn.on_right = roll(gon.hori_motor, -1)
+
+    gon.rc.on_channel1_top_left    = roll(gon.vert_motor, 5)
+    gon.rc.on_channel1_bottom_left  = roll(gon.vert_motor, -5)
+    gon.rc.on_channel1_top_right   = roll(gon.hori_motor, 5)
+    gon.rc.on_channel1_bottom_right = roll(gon.hori_motor, -5)
+
 def menu_handler_function(func, gon):
     
     def on_press(state):

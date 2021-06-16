@@ -8,7 +8,7 @@ from ev3dev2.led import Leds
 from time import sleep
 from PIL import Image
 import os
-from stuss_utils import roll, unbind_all_buttons, menu_handler_function, handler_function, auto_move
+from stuss_utils import bind_buttons_free_move, unbind_all_buttons, menu_handler_function, handler_function, auto_move
 os.system('setfont Lat15-TerminusBold14')
 
 
@@ -67,17 +67,9 @@ def free(gon):
     gon.lcd.update()
     print('free')
 
-    # set buttons (Button speed ist extra noch nicht korrekt)
+    # set buttons
 
-    gon.btn.on_up    = roll(gon.vert_motor, 1)
-    gon.btn.on_down  = roll(gon.vert_motor, -1)
-    gon.btn.on_left  = roll(gon.hori_motor, 1)
-    gon.btn.on_right = roll(gon.hori_motor, -1)
-
-    gon.rc.on_channel1_top_left    = roll(gon.vert_motor, 5)
-    gon.rc.on_channel1_bottom_left  = roll(gon.vert_motor, -5)
-    gon.rc.on_channel1_top_right   = roll(gon.hori_motor, 5)
-    gon.rc.on_channel1_bottom_right = roll(gon.hori_motor, -5)
+    bind_buttons_free_move(gon)
 
     print('free roll passed')
 
@@ -101,7 +93,7 @@ def free(gon):
     # unbind buttons
     unbind_all_buttons(gon)
 
-    print('about to leave free')
+    print('leaving free transit mode')
 
 
 def auto(gon):
@@ -144,7 +136,62 @@ def calibrate(gon):
     gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
-    print('cal')
+    print('calibrating')
+
+    bind_buttons_free_move(gon)
+
+    def set_start_position(gon):
+        def on_press(state):
+            if(state):
+                gon.vert_motor.position = 0
+                gon.hori_motor.position = 0 # TODO geht das wirklich?
+                gon.menu_exit = True
+                
+        return on_press
+    
+    gon.menu_exit = False
+    gon.btn.on_enter = set_start_position(gon)
+
+    print('Please move the gondola to the desired loading position on the right hand side of the bridge.')
+    print('If you have reached to lowest and most right position confirm by pressing Enter.')
+
+
+    while not gon.menu_exit:
+        gon.btn.process()
+        sleep(0.01)
+
+    print('Start position confirmed at ' + gon.vert_motor.position + ' ' + gon.hori_motor.position)
+
+    sleep(2)
+
+    gon.lcd.clear()
+    gon.lcd.update()
+
+    def set_travel_position(gon):
+        def on_press(state):
+            if(state):
+                gon.vert_length = gon.vert_motor.position
+                gon.hori_length = gon.hori_motor.position # TODO geht das wirklich?
+                gon.menu_exit = True
+                
+        return on_press
+    
+    gon.menu_exit = False
+    gon.btn.on_enter = set_travel_position(gon)
+
+    print('Please move the gondola to the desired traveling height on the left hand side of the bridge.')
+    print('If you have reached to highest and most left position confirm by pressing Enter.')
+
+    while not gon.menu_exit:
+        gon.btn.process()
+        sleep(0.01)
+
+    print('Travel position confirmed at ' + gon.vert_motor.position + ' ' + gon.hori_motor.position)
+
+    unbind_all_buttons(gon)
+
+    print('calibration finished')
+
 
 def beep(gon):
     # Sound.beep()
