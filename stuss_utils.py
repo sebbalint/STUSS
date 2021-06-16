@@ -1,4 +1,5 @@
-from ev3dev2.led import Leds
+from ev3dev2.led import Led
+from time import sleep
 
 def roll(motor, direction): # LEDs könnten hier noch blinken, TODO
     """
@@ -23,8 +24,8 @@ def roll(motor, direction): # LEDs könnten hier noch blinken, TODO
 
 def auto_move(gon): # TODO sleeps zwischen die moves, ramp ups vllt, andere stop action
     
-    print("moving")
     gon.sound.beep()
+    sleep(2)
 
     # move up
     gon.vert_motor.run_to_rel_pos(position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="coast")
