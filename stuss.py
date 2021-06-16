@@ -143,6 +143,7 @@ def calibrate(gon):
     def set_start_position(gon):
         def on_press(state):
             if(state):
+                print('ich lebe noch')
                 gon.vert_motor.position = 0
                 gon.hori_motor.position = 0 # TODO geht das wirklich?
                 gon.menu_exit = True
@@ -158,6 +159,7 @@ def calibrate(gon):
 
     while not gon.menu_exit:
         gon.btn.process()
+        gon.rc.process()
         sleep(0.01)
 
     print('Start position confirmed at ' + gon.vert_motor.position + ' ' + gon.hori_motor.position)
@@ -184,6 +186,7 @@ def calibrate(gon):
 
     while not gon.menu_exit:
         gon.btn.process()
+        gon.rc.process()
         sleep(0.01)
 
     print('Travel position confirmed at ' + gon.vert_motor.position + ' ' + gon.hori_motor.position)
