@@ -9,7 +9,7 @@ from time import sleep
 from PIL import Image
 import ev3dev2.fonts as fonts
 import os
-from stuss_utils import bind_buttons_free_move, unbind_all_buttons, menu_handler_function, handler_function, auto_move
+from stuss_utils import bind_buttons_free_move, unbind_all_buttons, menu_handler_function, handler_function, auto_move, bind_buttons_limited_free_move, limited_roll
 os.system('setfont Lat15-TerminusBold14')
 
 
@@ -62,10 +62,8 @@ def free(gon):
     gon.lcd.draw.text((10,10), 'free', font=fonts.load('luBS14'))
     gon.lcd.update()
 
-    # set buttons
-    bind_buttons_free_move(gon)
-
-    # print('free roll passed')
+    # set buttons. Added constant for inacurracy margin, because gondola may sit on the area border after calibration.
+    bind_buttons_limited_free_move(gon, gon.vert_length + 10, gon.hori_length + 10)
 
     gon.menu_exit = False
 
@@ -77,7 +75,6 @@ def free(gon):
         
 
     gon.btn.on_enter = exit_to_menu(gon)
-    # print('enter assigned')
 
     while not gon.menu_exit:
         gon.btn.process()
@@ -86,8 +83,6 @@ def free(gon):
     
     # unbind buttons
     unbind_all_buttons(gon)
-
-    # print('leaving free transit mode')
 
 def return_to_start(gon):
 
