@@ -107,6 +107,9 @@ def auto(gon):
     gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
+
+    gon.return_to_start(gon)
+    
     print('auto')
 
     def exit_to_menu(gon):
@@ -121,10 +124,6 @@ def auto(gon):
     gon.btn.on_enter = exit_to_menu(gon)
 
     print('buttons assigned')
-
-    gon.return_to_start(gon)
-
-    print("after")
 
     while not gon.menu_exit:
         gon.btn.process()
