@@ -60,7 +60,7 @@ def exit(gon):
 def free(gon):
     gon.run_menu = False
     gon.lcd.clear()
-    gon.lcd.draw.text((10,10), 'free', font=fonts.load('luBS14'))
+    gon.lcd.draw.text((10,10), 'Free Mode\n Move the Gondola using \nthe buttons on eiter \nside of the bridge.\n Exit via the middle \nbutton', font=fonts.load('luBS12'))
     gon.lcd.update()
 
     # set buttons. Added constant for inacurracy margin, because gondola may sit on the area border after calibration.
@@ -108,12 +108,12 @@ def return_to_start(gon):
 def auto(gon):
     gon.menu_exit = False
     gon.run_menu = False
+    return_to_start(gon)
     gon.lcd.clear()
     gon.lcd.update()
     logo = Image.open('/home/robot/STUSS/Images/auto_menu.png')
     gon.lcd.image.paste(logo, (0,0))
     gon.lcd.update()
-    return_to_start(gon)
 
     def exit_to_menu(gon):
         def on_press(state):
@@ -138,7 +138,7 @@ def calibrate(gon):
     gon.run_menu = False
     gon.lcd.clear()
     gon.lcd.update()
-    gon.lcd.draw.text((10,10), 'calibrating.. \nPlease move the gondola to the desired loading position on the right hand side of the bridge. \nIf you have reached the lowest and most right position confirm by pressing Enter.', font=fonts.load('luBS14'))
+    gon.lcd.draw.text((10,10), 'calibrating.. \nPlease move the gondola to \nthe desired loading position \non the right hand side of \nthe bridge. \nIf you have reached the \nlowest and most right position \nconfirm by pressing Enter.', font=fonts.load('luBS10'))
     gon.lcd.update()
 
     bind_buttons_free_move(gon)
@@ -160,7 +160,9 @@ def calibrate(gon):
         gon.rc.process()
         sleep(0.01)
 
-    gon.lcd.draw.text((10,10), 'Start position confirmed', font=fonts.load('luBS14'))
+    gon.lcd.clear()
+    gon.lcd.update()
+    gon.lcd.draw.text((10,10), 'Start position confirmed', font=fonts.load('luBS12'))
     gon.lcd.update()
     #print(gon.vert_motor.position)
     #print(gon.hori_motor.position)
@@ -169,7 +171,7 @@ def calibrate(gon):
 
     gon.lcd.clear()
     gon.lcd.update()
-    gon.lcd.draw.text((10,10), 'calibrating.. \nPlease move the gondola to the desired travelling height on the left hand side of the bridge. \nIf you have reached to highest and most left position confirm by pressing Enter.', font=fonts.load('luBS14'))
+    gon.lcd.draw.text((10,10), 'calibrating.. \nPlease move the gondola to \nthe desired travelling height \non the left hand side of \nthe bridge. \nIf you have reached to \nhighest and most left position \nconfirm by pressing Enter.', font=fonts.load('luBS10'))
     gon.lcd.update()
 
     def set_travel_position(gon):
@@ -189,14 +191,18 @@ def calibrate(gon):
         gon.rc.process()
         sleep(0.01)
 
-    gon.lcd.draw.text((10,10), 'Travel position confirmed', font=fonts.load('luBS14'))
+    gon.lcd.clear()
+    gon.lcd.update()
+    gon.lcd.draw.text((10,10), 'Travel position confirmed', font=fonts.load('luBS12'))
     gon.lcd.update()
     #print(gon.vert_motor.position)
     #print(gon.hori_motor.position)
 
     unbind_all_buttons(gon)
 
-    gon.lcd.draw.text((10,10), 'calibration finished.', font=fonts.load('luBS14'))
+    gon.lcd.clear()
+    gon.lcd.update()
+    gon.lcd.draw.text((10,10), 'calibration finished.', font=fonts.load('luBS12'))
     gon.lcd.update()
 
     sleep(2)
