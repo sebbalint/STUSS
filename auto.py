@@ -46,50 +46,31 @@ class Gondola():
         self.vert_length = 500
         self.hori_length = 700
 
-        self.auto_speed = 200
+        self.auto_speed = 500
+        self.ramp = 3000
         # values 1 and -1
         self.direction = 1
 
 
-def auto_move():
+def auto_move(gon):
     # move up
-    gon.vert_motor.run_to_rel_pos(position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="coast")
+    gon.vert_motor.run_to_rel_pos(ramp_up_sp=gon.ramp,ramp_down_sp=gon.ramp,position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="coast")
     gon.vert_motor.wait_while('running')
 
     # move left/right
-    gon.hori_motor.run_to_rel_pos(position_sp=gon.hori_length*gon.direction, speed_sp=gon.auto_speed, stop_action="coast")
+    gon.hori_motor.run_to_rel_pos(ramp_up_sp=gon.ramp,ramp_down_sp=gon.ramp,position_sp=gon.hori_length*gon.direction, speed_sp=gon.auto_speed, stop_action="coast")
     gon.hori_motor.wait_while('running')
     gon.direction = gon.direction * (-1)
 
     # move down
-    gon.vert_motor.run_to_rel_pos(position_sp=-gon.vert_length, speed_sp=gon.auto_speed, stop_action="coast")
+    gon.vert_motor.run_to_rel_pos(ramp_up_sp=gon.ramp,ramp_down_sp=gon.ramp, position_sp=-gon.vert_length, speed_sp=gon.auto_speed, stop_action="coast")
     gon.vert_motor.wait_while('running')
 # Main
 
 gon = Gondola()
 
-print('start')
-sleep(3)
-gon.menu_exit = False
-
-gon.btn.on_up = move()
-gon.rc.on_channel1_top_left = move()
-
-def exit_to_menu(gon):
-    def on_press(state):
-        gon.menu_exit = True
-    return on_press
-        
-
-gon.btn.on_enter = exit_to_menu(gon)
-
-while not gon.menu_exit:
-    gon.btn.process()
-    gon.rc.process()
-    sleep(0.01)
-    
-
-gon.lcd.clear()
-gon.lcd.update()
-print('Goodbye')
-# gon.sound.speak('Goodbye').wait()
+print("starting....")
+sleep(2)
+auto_move(gon)
+print("done")
+sleep(2)

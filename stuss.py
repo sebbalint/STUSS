@@ -43,7 +43,8 @@ class Gondola():
         self.vert_length = 500
         self.hori_length = 700
 
-        self.auto_speed = 200
+        self.auto_speed = 500
+        self.ramp = 3000
         # values 1 and -1
         self.direction = 1
 
@@ -95,13 +96,13 @@ def return_to_start(gon):
     gon.run_menu = False
     gon.direction = 1
 
-    gon.vert_motor.run_to_abs_pos(position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="brake")
+    gon.vert_motor.run_to_abs_pos(ramp_up_sp=gon.ramp,ramp_down_sp=gon.ramp,position_sp=gon.vert_length, speed_sp=gon.auto_speed, stop_action="brake")
     gon.vert_motor.wait_while('running')
 
-    gon.hori_motor.run_to_abs_pos(position_sp=0, speed_sp=gon.auto_speed, stop_action="brake")
+    gon.hori_motor.run_to_abs_pos(ramp_up_sp=gon.ramp,ramp_down_sp=gon.ramp,position_sp=0, speed_sp=gon.auto_speed, stop_action="brake")
     gon.hori_motor.wait_while('running')
 
-    gon.vert_motor.run_to_abs_pos(position_sp=0, speed_sp=gon.auto_speed, stop_action="brake")
+    gon.vert_motor.run_to_abs_pos(ramp_up_sp=gon.ramp,ramp_down_sp=gon.ramp,position_sp=0, speed_sp=gon.auto_speed, stop_action="brake")
     gon.vert_motor.wait_while('running')
 
 def auto(gon):
