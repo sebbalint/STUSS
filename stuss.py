@@ -43,7 +43,7 @@ class Gondola():
         self.vert_length = 500
         self.hori_length = 700
 
-        self.auto_speed = 500
+        self.auto_speed = 150
         self.ramp = 3000
         # values 1 and -1
         self.direction = 1
